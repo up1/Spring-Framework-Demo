@@ -5,3 +5,9 @@ target/
 .classpath
 .settings/
 .metadata/
+/SpringREST01/target/
+/SpringREST02/target/
+*.class
+*.jar
+*.war
+*.ear

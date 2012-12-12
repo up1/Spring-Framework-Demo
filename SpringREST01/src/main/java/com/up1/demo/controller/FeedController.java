@@ -11,49 +11,59 @@ import com.up1.demo.bean.FeedBean;
 
 @Controller
 @RequestMapping(value = "/feed")
-public class FeedController {
-	
+public class FeedController extends BaseController {
+
 	/**
 	 * Get feed by id
+	 * 
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/{id}", method = RequestMethod.GET)
-    public @ResponseBody FeedBean info(@PathVariable int id ) {
-		//Get feed by id
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public @ResponseBody
+	FeedBean info(@PathVariable int id) {
+		// Get feed by id
 		return new FeedBean();
-    }
-	
+	}
+
 	/**
 	 * Create new feed
+	 * 
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody FeedBean newFeed( ) {
-		//Create new feed
-		return new FeedBean();
-    }
-	
+	@ResponseBody
+	public FeedBean newFeed(@RequestBody FeedBean feedBean) {
+		// Create new feed
+		FeedBean outputFeed = new FeedBean();
+		outputFeed.setId(1);
+		return outputFeed;
+	}
+
 	/**
 	 * Update feed
+	 * 
 	 * @param feedBean
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.PUT)
-    public @ResponseBody FeedBean updateFeed( @RequestBody FeedBean feedBean ) {
-		//Update feed
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public @ResponseBody
+	FeedBean updateFeed(@RequestBody FeedBean feedBean, @PathVariable int id) {
+		// Update feed
 		return feedBean;
-    }
-	
+	}
+
 	/**
 	 * Delete feed
+	 * 
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
-    public @ResponseBody FeedBean deleteFeed(@PathVariable int id ) {
-		//Delete feed by id
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public @ResponseBody
+	FeedBean deleteFeed(@PathVariable int id) {
+		// Delete feed by id
 		return new FeedBean();
-    }	
+	}
 
 }

@@ -1,26 +1,26 @@
 package com.up1.demo.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.up1.demo.bean.ErrorBean;
-import com.up1.demo.bean.FeedBean;
-import com.up1.demo.exception.JSONError;
+import com.up1.demo.exception.UnknownResourceException;
 
 public class BaseController {
 
 	@ExceptionHandler(Exception.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public @ResponseBody
-	ErrorBean  handleAllExceptions(Exception ex) {
-		
-		
-		
-		
-		return new ErrorBean();
+	ErrorBean handleAllExceptions(Exception exception) {
+
+		if (exception instanceof UnknownResourceException) {
+			ErrorBean errorBean = new ErrorBean();
+			errorBean.setErrorCode("unknow_resource");
+			errorBean.setErrorMessage(exception.getMessage());
+			errorBean.setErrorType("unknow_resource");
+			return errorBean;
+		} else {
+			return new ErrorBean();
+		}
 	}
 
 }

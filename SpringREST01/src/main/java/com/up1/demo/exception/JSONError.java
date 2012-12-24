@@ -17,6 +17,7 @@ public class JSONError {
 		MappingJacksonJsonView jsonView = new MappingJacksonJsonView();
 		Map<String, String> outputMap = new HashMap<String, String>();
 		outputMap.put("error", message);
+		outputMap.put("code", "number-incorrect");
 		return new ModelAndView(jsonView, outputMap);
 	}
 }

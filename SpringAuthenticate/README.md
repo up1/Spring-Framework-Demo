@@ -2,6 +2,15 @@ SpringRESTAuthentication
 ========================
 
 1. run project in tomcat + maven
-	mvn tomcat:run
+    $ mvn tomcat:run
+
 2. Test in browser http://localhost:8585/demo03/<id>
 
+3. Using Spring Data
+`
+    <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-redis</artifactId>
+        <version>1.0.2.RELEASE</version>
+    </dependency> 
+`

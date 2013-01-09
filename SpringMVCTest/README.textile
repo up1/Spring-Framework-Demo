@@ -1,5 +1,6 @@
 SpringMVC Test
 ========================
+
 Spring Framework 3.2.0 RELEASE
 
 1. run test with Apache maven

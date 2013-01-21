@@ -1,12 +1,14 @@
 package up1.demo.test;
 
+import static org.junit.Assert.assertTrue;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.anything;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.*;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.*;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +41,7 @@ public class FeedControllerTest {
 
 	@Test
 	public void getInfo() throws Exception {
-		this.mockMvc.perform(get("/feed/1").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
+		this.mockMvc.perform(post("/feed/xxx/1").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
 				.andExpect(jsonPath("$.title").value("Somkiat"));
 	}
 
@@ -50,8 +52,8 @@ public class FeedControllerTest {
 
 		mockServer.expect(anything());
 		mockServer.expect(anything());
-		mockServer.expect(requestTo("/feed/1")).andRespond(withSuccess("Hello world", MediaType.APPLICATION_JSON));
-		
+		mockServer.expect(requestTo("/feed/xxx/1")).andRespond(withSuccess("Hello world", MediaType.APPLICATION_JSON));
+
 		try {
 			mockServer.verify();
 		} catch (AssertionError error) {

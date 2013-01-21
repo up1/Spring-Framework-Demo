@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = "com.up1.demo")
+@ComponentScan(basePackages = "up1.demo")
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Bean

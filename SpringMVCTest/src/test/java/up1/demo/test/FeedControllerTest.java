@@ -53,10 +53,10 @@ public class FeedControllerTest {
 				.andExpect(jsonPath("$.title").value("Somkiat"));
 	}
 
-	// @Test
-	// public void getAll() throws Exception {
-	// this.mockMvc.perform(get("/feed/all").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"));
-	// }
+	 @Test
+	 public void getAll() throws Exception {
+	 this.mockMvc.perform(get("/feed/all").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"));
+	 }
 
 	@Test
 	public void callFromRestClient() throws Exception {

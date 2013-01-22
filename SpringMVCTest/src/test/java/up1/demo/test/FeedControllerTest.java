@@ -5,7 +5,6 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -14,6 +13,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
 import up1.demo.config.TestWebConfig;
+import up1.demo.controller.FeedController;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -41,9 +43,20 @@ public class FeedControllerTest {
 
 	@Test
 	public void getInfo() throws Exception {
-		this.mockMvc.perform(post("/feed/xxx/1").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
+		this.mockMvc.perform(get("/feed/1").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
 				.andExpect(jsonPath("$.title").value("Somkiat"));
 	}
+
+	@Test
+	public void check() throws Exception {
+		this.mockMvc.perform(get("/feed/check/somkiat@gmail.com").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
+				.andExpect(jsonPath("$.title").value("Somkiat"));
+	}
+
+	// @Test
+	// public void getAll() throws Exception {
+	// this.mockMvc.perform(get("/feed/all").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"));
+	// }
 
 	@Test
 	public void callFromRestClient() throws Exception {
@@ -59,5 +72,15 @@ public class FeedControllerTest {
 		} catch (AssertionError error) {
 			assertTrue(error.getMessage(), error.getMessage().contains("0 out of 3 were executed"));
 		}
+	}
+
+	@Configuration
+	public static class TestConfiguration {
+
+		@Bean
+		public FeedController feedController() {
+			return new FeedController();
+		}
+
 	}
 }

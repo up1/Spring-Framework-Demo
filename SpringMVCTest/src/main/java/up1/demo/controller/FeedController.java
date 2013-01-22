@@ -3,10 +3,7 @@ package up1.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.annotate.JsonRootName;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +15,7 @@ import up1.demo.bean.FeedBean;
 
 @Controller
 @RequestMapping(value = "/feed")
-public class FeedController {
+public class FeedController extends BaseController {
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public @ResponseBody
@@ -27,6 +24,16 @@ public class FeedController {
 		feedBean.setTitle("Somkiat");
 		return feedBean;
 	} 
+	
+	@RequestMapping(value = {"/check/{email}"}, method = RequestMethod.GET)
+	public @ResponseBody
+	FeedBean check(@PathVariable String email) throws Exception {
+		System.out.println(email);
+		FeedBean feedBean = new FeedBean();
+		feedBean.setTitle("Somkiat");
+		return feedBean;
+	} 
+	
 	
 	@RequestMapping( value="/all", method = RequestMethod.GET)
 	public @ResponseBody

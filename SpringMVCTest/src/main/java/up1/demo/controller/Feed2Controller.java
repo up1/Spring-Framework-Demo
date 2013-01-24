@@ -3,7 +3,6 @@ package up1.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,10 +31,8 @@ public class Feed2Controller extends BaseController {
 	@RequestMapping(value = { "/check/{email}" }, method = RequestMethod.GET)
 	public @ResponseBody
 	FeedBean check(@PathVariable String email) throws Exception {
-		System.out.println(email);
-		FeedBean feedBean = new FeedBean();
-		feedBean.setTitle("Somkiat");
-		return feedBean;
+		System.out.println("TEST : " + email);
+		return feedService.getInfo(2);
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)

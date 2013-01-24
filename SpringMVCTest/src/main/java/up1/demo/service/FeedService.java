@@ -4,6 +4,6 @@ import up1.demo.bean.FeedBean;
 import up1.demo.bean.FeedListData;
 
 public interface FeedService {
-	FeedBean getInfo(int id);
+	FeedBean getInfo(int id) throws Exception;
 	FeedListData getAll();
 }

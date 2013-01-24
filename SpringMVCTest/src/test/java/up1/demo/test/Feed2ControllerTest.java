@@ -1,6 +1,6 @@
 package up1.demo.test;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -64,9 +64,10 @@ public class Feed2ControllerTest {
 		feedBean.setTitle("My Link");
 
 		otherProxyMock = wac.getBean(OtherProxy.class);
-		when(otherProxyMock.getData(2)).thenThrow(new Exception("Data not found"));
+		when(otherProxyMock.getData(2)).thenThrow(new Exception("Data not found in proxy"));
 
 		feedServiceMock = wac.getBean(FeedService.class);
+//		when(feedServiceMock.getInfo(2)).thenThrow(new Exception("Data not found in service"));
 		when(feedServiceMock.getInfo(2)).thenCallRealMethod();
 
 		this.mockMvc.perform(get("/feed2/2").accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest()).andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -78,12 +79,14 @@ public class Feed2ControllerTest {
 		FeedBean feedBean = new FeedBean();
 		feedBean.setId(1);
 		feedBean.setTitle("My Link");
+		int id = 3;
 
 		otherProxyMock = wac.getBean(OtherProxy.class);
-		when(otherProxyMock.getData(3)).thenThrow(new Exception("Data not found"));
+		when(otherProxyMock.getData(id)).thenThrow(new Exception("Data not found from proxy"));
 
 		feedServiceMock = wac.getBean(FeedService.class);
-		when(feedServiceMock.getInfo(3)).thenCallRealMethod();
+//		when(feedServiceMock.getInfo(id)).thenThrow(new Exception("Data not found"));
+		when(feedServiceMock.getInfo(id)).thenCallRealMethod();
 
 		this.mockMvc.perform(get("/feed2/3")).andDo(print());
 	}

@@ -1,10 +1,12 @@
 package up1.demo.test;
 
 import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.anything;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -53,10 +55,14 @@ public class FeedControllerTest {
 				.andExpect(jsonPath("$.title").value("Somkiat"));
 	}
 
-	 @Test
-	 public void getAll() throws Exception {
-	 this.mockMvc.perform(get("/feed/all").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"));
-	 }
+	@Test
+	public void getAll() throws Exception {
+		this.mockMvc.perform(get("/feed/all").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(content().string(containsString("Somkiat")));
+		
+		
+//		String createJson = "{\"id\":%d,\"name\":\"%s\"}";
+//		this.mockMvc.perform(put("/feed/all").accept(MediaType.APPLICATION_JSON).content( String.format(createJson, 1, "UP1" )));
+	}
 
 	@Test
 	public void callFromRestClient() throws Exception {
